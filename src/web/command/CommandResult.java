@@ -5,13 +5,13 @@ public class CommandResult {
     public final String redirectUrl;
     public final String view;
 
-    private CommandResult(boolean redirect, String redirectUrl, String view){
+    private CommandResult(boolean redirect, String redirectUrl, String view) {
         this.redirect = redirect;
         this.redirectUrl = redirectUrl;
         this.view = view;
     }
 
-    public static CommandResult redirect(String url){
+    public static CommandResult redirect(String url) {
         return new CommandResult(true, url, null);
     }
 

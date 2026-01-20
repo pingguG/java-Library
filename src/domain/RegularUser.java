@@ -1,7 +1,8 @@
 package domain;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegularUser extends User {
     private final List<BorrowRecord> borrowedRecords;

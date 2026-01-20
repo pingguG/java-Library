@@ -2,10 +2,13 @@ package was.httpserver;
 
 import was.ServletManager;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
-import static java.nio.charset.StandardCharsets.UTF_8; //UTF를 편하게 쓰기 위해 작성
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static util.MyLogger.log;
 
 public class HttpRequestHandlerV4 implements Runnable {
@@ -34,7 +37,7 @@ public class HttpRequestHandlerV4 implements Runnable {
             request.setServletManager(servletManager);
             HttpResponse response = new HttpResponse(writer);
 
-            if (request.getPath().equals("/favicon.ico")) {
+            if ("/favicon.ico".equals(request.getPath())) {
                 log("favicon requests");
                 return;
             }

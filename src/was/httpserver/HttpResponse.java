@@ -1,6 +1,6 @@
 package was.httpserver;
 
-import java.io.*;
+import java.io.PrintWriter;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

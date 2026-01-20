@@ -1,9 +1,10 @@
 package web.command.action;
 
 import Library.LibraryService;
-import domain.*;
-
-import was.httpserver.*;
+import domain.Admin;
+import domain.RegularUser;
+import domain.User;
+import was.httpserver.HttpRequest;
 import was.session.SessionManager;
 import web.command.Command;
 import web.command.CommandResult;
@@ -12,13 +13,13 @@ public class LoginCommand implements Command {
     private final LibraryService libraryService;
     private final SessionManager sessionManager;
 
-    public LoginCommand(LibraryService ls, SessionManager sm){
+    public LoginCommand(LibraryService ls, SessionManager sm) {
         this.libraryService = ls;
         this.sessionManager = sm;
     }
 
     @Override
-    public CommandResult execute(HttpRequest request){
+    public CommandResult execute(HttpRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -42,6 +43,6 @@ public class LoginCommand implements Command {
         }
 
         return CommandResult.redirect("/?flash=login_err");
-    };
+    }
 }
 
