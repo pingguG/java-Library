@@ -1,7 +1,6 @@
 package web.content;
 
 import domain.Book;
-import domain.User;
 import util.PageUtil;
 
 import java.util.List;

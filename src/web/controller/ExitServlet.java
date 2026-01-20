@@ -1,6 +1,8 @@
 package web.controller;
 
-import was.httpserver.*;
+import was.httpserver.HttpRequest;
+import was.httpserver.HttpResponse;
+import was.httpserver.HttpServlet;
 
 public class ExitServlet implements HttpServlet {
 

@@ -2,9 +2,11 @@ package was.httpserver;
 
 import was.ServletManager;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -69,6 +71,7 @@ public class HttpRequest {
     public ServletManager getServletManager() {
         return servletManager;
     }
+
     @Override
     public String toString() {
         return "HttpRequest{" + "method='" + method + '\'' + ", path='" + path + '\'' + ", queryParameters=" + queryParameters + ", headers=" + headers + '}';

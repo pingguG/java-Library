@@ -1,4 +1,5 @@
 package web.content;
+
 import static util.PageUtil.escape;
 
 public class BorrowContent {

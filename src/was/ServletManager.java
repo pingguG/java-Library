@@ -7,8 +7,9 @@ import was.httpserver.HttpServlet;
 import was.session.SessionManager;
 import web.controller.NotFoundServlet;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServletManager {
     private final Map<String, HttpServlet> servletMap = new HashMap<>();
