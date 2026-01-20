@@ -13,3 +13,7 @@ target/
 # OS
 .DS_Store
 Thumbs.db
+
+users.txt
+books.txt
+borrow.txt
