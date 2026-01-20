@@ -1,7 +1,7 @@
 package Library;
 
-import model.Book;
-import model.User;
+import domain.Book;
+import domain.User;
 
 import java.util.*;
 

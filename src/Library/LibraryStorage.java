@@ -1,6 +1,6 @@
 package Library;
 
-import model.*;
+import domain.*;
 
 import java.io.*;
 import java.time.LocalDateTime;
