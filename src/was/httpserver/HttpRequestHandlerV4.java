@@ -37,7 +37,7 @@ public class HttpRequestHandlerV4 implements Runnable {
             request.setServletManager(servletManager);
             HttpResponse response = new HttpResponse(writer);
 
-            if (request.getPath().equals("/favicon.ico")) {
+            if ("/favicon.ico".equals(request.getPath())) {
                 log("favicon requests");
                 return;
             }

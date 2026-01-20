@@ -44,7 +44,5 @@ public class LoginCommand implements Command {
 
         return CommandResult.redirect("/?flash=login_err");
     }
-
-    ;
 }
 
