@@ -3,7 +3,10 @@ package Library;
 import domain.Book;
 import domain.User;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LibraryMap {
     private final List<Book> books;
@@ -27,6 +30,8 @@ public class LibraryMap {
     }
 
     public boolean registerUser(User user) {
+        if (user == null) return false;
+
         for (User u : users.values()) {
             if (u.equals(user)) return false;
         }

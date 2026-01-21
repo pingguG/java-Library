@@ -1,6 +1,6 @@
 package was.session;
 
-import domain.*;
+import domain.User;
 
 public class Session {
 

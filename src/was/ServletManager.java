@@ -1,33 +1,17 @@
 package was;
 
-import Library.LibraryService;
 import was.httpserver.HttpRequest;
 import was.httpserver.HttpResponse;
 import was.httpserver.HttpServlet;
-import was.session.SessionManager;
 import web.controller.NotFoundServlet;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServletManager {
     private final Map<String, HttpServlet> servletMap = new HashMap<>();
     private final HttpServlet notFoundServlet = new NotFoundServlet();
-    private final LibraryService libraryService;
-    private final SessionManager sessionManager;
-
-    public ServletManager(LibraryService libraryService, SessionManager sessionManager) {
-        this.libraryService = libraryService;
-        this.sessionManager = sessionManager;
-    }
-
-    public LibraryService getLibraryService() {
-        return libraryService;
-    }
-
-    public SessionManager getSessionManager() {
-        return sessionManager;
-    }
 
     public void add(String path, HttpServlet servlet) {
         servletMap.put(path, servlet);

@@ -2,6 +2,7 @@ package web.content;
 
 import domain.Book;
 import util.PageUtil;
+import util.UrlUtil;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class BorrowedBookContent {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<h2>대출 가능한 도서 목록</h2>");
+        sb.append("<h2>반납 가능한 도서 목록</h2>");
         sb.append("<ul>");
 
         for (Book book : borrowed) {
@@ -24,7 +25,7 @@ public class BorrowedBookContent {
             sb.append("<a class='btn' href='/user?sessionId=")
                     .append(sid)
                     .append("&action=return&title=")
-                    .append(title)
+                    .append(UrlUtil.decode(title))
                     .append("'>반납</a>");
 
             sb.append("</li>");

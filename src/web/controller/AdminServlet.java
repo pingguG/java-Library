@@ -3,31 +3,32 @@ package web.controller;
 import Library.LibraryService;
 import domain.User;
 import util.FlashMessage;
-import was.ServletManager;
-import was.httpserver.*;
+import was.httpserver.HttpRequest;
+import was.httpserver.HttpResponse;
+import was.httpserver.HttpServlet;
 import was.session.SessionManager;
 import web.command.CommandManager;
 import web.command.CommandResult;
 import web.command.action.AddBookCommand;
 import web.command.action.AddUserCommand;
-import web.content.*;
+import web.content.AddBookContent;
+import web.content.AddUserContent;
+import web.content.NavContent;
 import web.template.BaseTemplate;
 
 import java.io.IOException;
 
-public class AdminController implements HttpServlet {
-    private final LibraryService libraryService;
+public class AdminServlet implements HttpServlet {
     private final SessionManager sessionManager;
     private final CommandManager commands = new CommandManager();
 
-    public AdminController(ServletManager manager) {
-        this.libraryService = manager.getLibraryService();
-        this.sessionManager = manager.getSessionManager();
+    public AdminServlet(LibraryService libraryService, SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
 
         commands.register("addBook",
-                new AddBookCommand(manager.getLibraryService(), manager.getSessionManager()));
+                new AddBookCommand(libraryService, sessionManager));
         commands.register("addUser"
-                , new AddUserCommand(manager.getLibraryService(), manager.getSessionManager()));
+                , new AddUserCommand(libraryService, sessionManager));
     }
 
     @Override

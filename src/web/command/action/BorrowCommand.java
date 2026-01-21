@@ -1,8 +1,8 @@
 package web.command.action;
 
 import Library.LibraryService;
-import domain.*;
-import was.httpserver.*;
+import domain.User;
+import was.httpserver.HttpRequest;
 import was.session.SessionManager;
 import web.command.Command;
 import web.command.CommandResult;

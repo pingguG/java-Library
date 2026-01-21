@@ -2,10 +2,12 @@ package was.session;
 
 import domain.User;
 
-import java.util.*;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SessionManager {
-    private final Map<String, Session> sessions = new HashMap<>();
+    private final Map<String, Session> sessions = new ConcurrentHashMap<>();
 
     public String createSession(User user) {
         String id = UUID.randomUUID().toString();

@@ -1,6 +1,7 @@
 package web.content;
 
 import util.PageUtil;
+
 public class LoginContent {
 
     public static String renderLogin(String errMsg) {

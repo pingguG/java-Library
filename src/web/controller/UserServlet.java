@@ -3,25 +3,30 @@ package web.controller;
 import Library.LibraryService;
 import domain.User;
 import util.FlashMessage;
-import was.ServletManager;
-import was.httpserver.*;
+import was.httpserver.HttpRequest;
+import was.httpserver.HttpResponse;
+import was.httpserver.HttpServlet;
 import was.session.SessionManager;
 import web.command.CommandManager;
 import web.command.CommandResult;
-import web.command.action.*;
-import web.content.*;
+import web.command.action.BorrowCommand;
+import web.command.action.ReturnBookCommand;
+import web.content.BookListContent;
+import web.content.BorrowedBookContent;
+import web.content.NavContent;
+import web.content.OverdueContent;
 import web.template.BaseTemplate;
 
 import java.io.IOException;
 
-public class UserController implements HttpServlet {
+public class UserServlet implements HttpServlet {
     private final LibraryService libraryService;
     private final SessionManager sessionManager;
     private final CommandManager commands = new CommandManager();
 
-    public UserController(ServletManager manager) {
-        this.libraryService = manager.getLibraryService();
-        this.sessionManager = manager.getSessionManager();
+    public UserServlet(LibraryService libraryService, SessionManager sessionManager) {
+        this.libraryService = libraryService;
+        this.sessionManager = sessionManager;
         // user 영역 action 등록
         commands.register("borrow",
                 new BorrowCommand(libraryService, sessionManager));

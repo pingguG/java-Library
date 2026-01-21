@@ -1,29 +1,27 @@
 package web.controller;
 
 import Library.LibraryService;
-import was.ServletManager;
-import was.httpserver.*;
+import util.FlashMessage;
+import was.httpserver.HttpRequest;
+import was.httpserver.HttpResponse;
+import was.httpserver.HttpServlet;
 import was.session.SessionManager;
 import web.command.CommandManager;
 import web.command.CommandResult;
-import web.command.*;
 import web.command.action.LoginCommand;
 import web.content.BookListContent;
 import web.content.LoginContent;
 import web.content.NavContent;
 import web.template.BaseTemplate;
-import util.FlashMessage;
 
 import java.io.IOException;
 
-public class HomeController implements HttpServlet {
+public class HomeServlet implements HttpServlet {
     private final LibraryService libraryService;
-    private final SessionManager sessionManager;
     private final CommandManager commands = new CommandManager();
 
-    public HomeController(ServletManager manager) {
-        this.libraryService = manager.getLibraryService();
-        this.sessionManager = manager.getSessionManager();
+    public HomeServlet(LibraryService libraryService, SessionManager sessionManager) {
+        this.libraryService = libraryService;
 
         commands.register("login",
                 new LoginCommand(libraryService, sessionManager));

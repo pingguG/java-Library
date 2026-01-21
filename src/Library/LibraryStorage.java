@@ -81,7 +81,7 @@ public class LibraryStorage {
             for (User user : map.getUsers().values()) {
                 if (user instanceof RegularUser regular) {
                     for (BorrowRecord record : regular.getBorrowedRecords()) {
-                        writer.write(user.getUsername() + DELIM_CHAR + record.getBook().getTitle() + DELIM_CHAR + record.getBorrowDate().toString() + DELIM_CHAR);
+                        writer.write(user.getUsername() + DELIM_CHAR + record.getBook().getTitle() + DELIM_CHAR + record.getBorrowDate().toString());
                         writer.newLine();
                     }
                 }
@@ -136,6 +136,7 @@ public class LibraryStorage {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] p = line.split(DELIM_REGEX);
+                if (p.length < 3) continue;
 
                 String username = p[0];
                 String bookTitle = p[1];

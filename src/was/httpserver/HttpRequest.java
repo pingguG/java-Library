@@ -1,10 +1,11 @@
 package was.httpserver;
 
-import was.ServletManager;
+import util.UrlUtil;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -13,7 +14,6 @@ public class HttpRequest {
     private String path;
     private final Map<String, String> queryParameters = new HashMap<>();
     private final Map<String, String> headers = new HashMap<>();
-    private ServletManager servletManager;
 
     public HttpRequest(BufferedReader reader) throws IOException {
         parseRequestLine(reader);
@@ -40,17 +40,21 @@ public class HttpRequest {
     private void parseQueryParameters(String queryString) {
         for (String param : queryString.split("&")) {
             String[] keyValue = param.split("=");
-            String key = URLDecoder.decode(keyValue[0], UTF_8);
-            String value = keyValue.length > 1 ? URLDecoder.decode(keyValue[1], UTF_8) : "";
+            String key = UrlUtil.decode(keyValue[0]);
+            String value = keyValue.length > 1 ? UrlUtil.decode(keyValue[1]) : "";
             queryParameters.put(key, value);
         }
     }
 
     private void parseHeaders(BufferedReader reader) throws IOException {
         String line;
-        while (!(line = reader.readLine()).isEmpty()) {
-            String[] headerParts = line.split(":");
-            headers.put(headerParts[0].trim(), headerParts[1].trim());
+        while ((line = reader.readLine()) != null && !line.isEmpty()) {
+            int idx = line.indexOf(':');
+            if (idx <= 0) continue;
+
+            String key = line.substring(0, idx).trim();
+            String value = line.substring(idx + 1).trim();
+            headers.put(key, value);
         }
     }
 
@@ -62,13 +66,6 @@ public class HttpRequest {
         return queryParameters.get(name);
     }
 
-    public void setServletManager(ServletManager servletManager) {
-        this.servletManager = servletManager;
-    }
-
-    public ServletManager getServletManager() {
-        return servletManager;
-    }
     @Override
     public String toString() {
         return "HttpRequest{" + "method='" + method + '\'' + ", path='" + path + '\'' + ", queryParameters=" + queryParameters + ", headers=" + headers + '}';

@@ -1,10 +1,14 @@
 package was.httpserver;
 
+import Library.LibraryService;
 import Library.LibraryStorage;
 import was.ServletManager;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,14 +19,17 @@ public class HttpServer {
     private final ExecutorService es = Executors.newFixedThreadPool(10);
     private final int port;
     private final ServletManager servletManager;
-    private volatile boolean running = true;
+    private final LibraryService libraryService;
     private final LibraryStorage storage;
+
+    private volatile boolean running = true;
 
     private ServerSocket serverSocket;
 
-    public HttpServer(int port, ServletManager servletManager, LibraryStorage storage) {
+    public HttpServer(int port, ServletManager servletManager, LibraryService libraryService, LibraryStorage storage) {
         this.port = port;
         this.servletManager = servletManager;
+        this.libraryService = libraryService;
         this.storage = storage;
     }
 
@@ -75,7 +82,7 @@ public class HttpServer {
         es.shutdownNow();
 
         try {
-            storage.save(servletManager.getLibraryService().getLibraryMap());
+            storage.save(libraryService.getLibraryMap());
             log("Library saved.");
         } catch (Exception e) {
             log(e);

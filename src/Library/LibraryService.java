@@ -2,7 +2,8 @@ package Library;
 
 import domain.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LibraryService {
     private final LibraryMap libraryMap;
@@ -70,23 +71,27 @@ public class LibraryService {
     }
 
     public boolean borrowBook(User user, String bookTitle) {
-        if (!(user instanceof RegularUser regular)) return false;
-        if (bookTitle == null) return false;
+        synchronized (libraryMap) {
+            if (!(user instanceof RegularUser regular)) return false;
+            if (bookTitle == null) return false;
 
-        Book book = libraryMap.findBookByTitle(bookTitle);
-        if (book == null || !book.isAvailable()) return false;
+            Book book = libraryMap.findBookByTitle(bookTitle);
+            if (book == null || !book.isAvailable()) return false;
 
-        return regular.borrowBook(book);
+            return regular.borrowBook(book);
+        }
     }
 
     public boolean returnBook(User user, String bookTitle) {
-        if (!(user instanceof RegularUser regular)) return false;
-        if (bookTitle == null) return false;
+        synchronized (libraryMap) {
+            if (!(user instanceof RegularUser regular)) return false;
+            if (bookTitle == null) return false;
 
-        Book book = libraryMap.findBookByTitle(bookTitle);
-        if (book == null) return false;
+            Book book = libraryMap.findBookByTitle(bookTitle);
+            if (book == null) return false;
 
-        return regular.returnBook(book);
+            return regular.returnBook(book);
+        }
     }
 
     public List<Book> getBorrowedBooks(User currentUser) {

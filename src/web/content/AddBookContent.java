@@ -7,7 +7,6 @@ public class AddBookContent {
         String s = "<h2>책 추가</h2>" +
                 "<form action='/admin' method='GET'>" +
 
-                // ✅ sessionId 유지 + action 전달
                 "<input type='hidden' name='sessionId' value='" +
                 sid +
                 "'>" +

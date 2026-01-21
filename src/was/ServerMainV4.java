@@ -1,12 +1,14 @@
 package was;
 
-import Library.*;
+import Library.LibraryMap;
+import Library.LibraryService;
+import Library.LibraryStorage;
 import was.httpserver.HttpServer;
 import was.session.SessionManager;
-import web.controller.UserController;
-import web.controller.AdminController;
+import web.controller.AdminServlet;
 import web.controller.ExitServlet;
-import web.controller.HomeController;
+import web.controller.HomeServlet;
+import web.controller.UserServlet;
 
 import java.io.IOException;
 
@@ -20,16 +22,16 @@ public class ServerMainV4 {
 
         LibraryService libraryService = new LibraryService(libraryMap);
         SessionManager sessionManager = new SessionManager();
+        ServletManager servletManager = new ServletManager();
 
-        ServletManager servletManager = new ServletManager(libraryService, sessionManager);
-
-        servletManager.add("/", new HomeController(servletManager));
-        servletManager.add("/admin", new AdminController(servletManager));
-        servletManager.add("/user", new UserController(servletManager));
+        // 필요한 것만 주입
+        servletManager.add("/", new HomeServlet(libraryService, sessionManager));
+        servletManager.add("/admin", new AdminServlet(libraryService, sessionManager));
+        servletManager.add("/user", new UserServlet(libraryService, sessionManager));
 
         servletManager.add("/exit", new ExitServlet());
 
-        HttpServer server = new HttpServer(PORT, servletManager, storage);
+        HttpServer server = new HttpServer(PORT, servletManager, libraryService,storage);
         server.start();
     }
 }

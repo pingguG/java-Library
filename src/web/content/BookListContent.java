@@ -1,8 +1,8 @@
 package web.content;
 
 import domain.Book;
-import domain.User;
 import util.PageUtil;
+import util.UrlUtil;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class BookListContent {
             sb.append("<a class='btn' href='/user?sessionId=")
                     .append(sid)
                     .append("&action=borrow&title=")
-                    .append(title)
+                    .append(UrlUtil.decode(title))
                     .append("'>대출</a>");
 
             sb.append("</li>");

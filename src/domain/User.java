@@ -24,8 +24,10 @@ public abstract class User {
 
     @Override
     public boolean equals(Object obj) {
-        User user = (User) obj;
-        return user.getUsername().equals(username);
+        // null이거나 user가 아니면 바로 터지는 상황 방지
+        if (this == obj) return true;
+        if (!(obj instanceof User other)) return false;
+        return username.equals(other.username);
     }
 
     public boolean checkPassword(String password) {
